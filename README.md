@@ -40,7 +40,17 @@ Other advantages:
 - Better organization of conversations in the Obsidian app.
 ## Preparing Environment
 #### Obsidian Plugin
+Navigate to your_vault_dir/.obsidian/plugins and clone this repo.
+Restart Obsidian, go to the community plugins settings tab and enable the plugin.
 #### Proxy Server
+In the cloned repo:
+```bash
+python -m venv gpt_proxy
+source gpt_proxy/bin/activate
+pip install eventlet flask flask-cors requests
+python gpt_proxy.py
+```
 
-##### Note
+Your OpenAI API key should be the accessible via the OPENAI_API_KEY environment variable.
+
 The proxy HTTP server that you must run locally to use this plugin is not encrypted as of time of writing. This means if there is malicious software running on your computer is will be able to view that traffic between Obsidian and the proxy server. This will not contain your OPENAI_API_KEY, which is only handled by the proxy server and OpenAI API communication. Eventually the proxy server will be updated to be encrypted.
