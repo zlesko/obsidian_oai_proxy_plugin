@@ -1,0 +1,11 @@
+{
+	"id": "oai_proxy",
+	"name": "oai_proxy",
+	"version": "0.1",
+	"minAppVersion": "0.15.0",
+	"description": "Obsidian plugin for interfacing with OpenAI API through a local Python proxy server.",
+	"author": "Zachary Lesko",
+	"authorUrl": "",
+	"fundingUrl": "",
+	"isDesktopOnly": false
+}
