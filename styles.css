@@ -1,0 +1,62 @@
+.gpt::before {
+    display: block;
+    font-weight: bold;
+    font-size: 22px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.parent_open::before {
+    content: "Parent";
+}
+.parent_close::before {
+    content: "/Parent";
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.children_open::before  {
+    content: "Children";
+    margin-bottom: 0px;
+}
+.children_close::before {
+    content: "/Children";
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.system_open::before {
+    content: "System";
+}
+.system_close::before {
+    content: "/System";
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.user_open::before {
+    content: "User";
+    color: #838950;
+}
+
+.user_close::before {
+    content: "/User";
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+.assistant_open::before {
+    content: "Assistant";
+    color: #427252;
+}
+
+.assistant_close::before {
+    content: "/Assistant";
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
