@@ -223,8 +223,16 @@ export default class MyPlugin extends Plugin {
 					statusBarItemEl.setText('GPT Ready');
 					return;
 				}
-				let tx_data = Object(this.settings);
+				let tx_data = { ...this.settings };
 				tx_data.messages = messages;
+				if(tx_data.model.includes('o1')){
+					const keys_to_keep = ['model', 'messages'];
+					for (const key in tx_data) {
+					  if (!keys_to_keep.includes(key)) {
+						delete tx_data[key];
+					  }
+					}
+				}
 				try{					
 					const response = await fetch('http://localhost:8000/chat',
 						{
