@@ -3,84 +3,13 @@ import { App, Editor, EditorPosition, MarkdownView,
 	TFile, Vault } from 'obsidian';
 
 const plugin_settings_default: Partial<{ [key: string]: any }> = {
-	model: 'gpt-4',
-	frequency_penalty: 0,
-	logit_bias: null,
-	logprobs: false,
-	top_logprobs: null,
-	max_tokens: null,
-	n: 1,
-	presence_penalty: 0,
-	response_format: { type: "text" },
-	seed: null,
-	stop: null,
-	stream: false,
-	temperature: 1,
-	top_p: 1,
-	// tools: [],
-	// tool_choice: "none",
-	user: null
+	model: 'gpt-4'
 };
 
 const plugin_settings_info: { [key: string]: { name: string, desc: string, type: string } } = {
     model: {
         name: 'model',
         desc: 'ID of the model to use. See the model endpoint compatibility table for details.',
-        type: 'string'
-    },
-    frequency_penalty: {
-        name: 'frequency_penalty',
-        desc: 'Number between -2.0 and 2.0, penalizes token repetition. Defaults to 0.',
-        type: 'number'
-    },
-    logit_bias: {
-        name: 'logit_bias',
-        desc: 'Modifies token likelihood using a map from token IDs to bias values (-100 to 100). Defaults to null.',
-        type: 'map'
-    },
-    logprobs: {
-        name: 'logprobs',
-        desc: 'Whether to return log probabilities of the output tokens. Defaults to false.',
-        type: 'boolean'
-    },
-    top_logprobs: {
-        name: 'top_logprobs',
-        desc: 'Returns the log probabilities for the top N tokens at each position, requires logprobs to be true. Defaults to null.',
-        type: 'integer'
-    },
-    max_tokens: {
-        name: 'max_tokens',
-        desc: 'Maximum number of tokens for the chat completion. Limited by the model\'s context length.',
-        type: 'integer'
-    },
-    n: {
-        name: 'n',
-        desc: 'Number of chat completion choices to generate. Defaults to 1.',
-        type: 'integer'
-    },
-    presence_penalty: {
-        name: 'presence_penalty',
-        desc: 'Number between -2.0 and 2.0, penalizes token presence to encourage topic variety. Defaults to 0.',
-        type: 'number'
-    },
-    response_format: {
-        name: 'response_format',
-        desc: 'Specifies the output format. Use {"type": "json_object"} for JSON mode.',
-        type: 'object'
-    },
-    seed: {
-        name: 'seed',
-        desc: 'Ensures deterministic output for repeated requests with the same seed and parameters. Beta feature.',
-        type: 'integer'
-    },
-    temperature: {
-        name: 'temperature',
-        desc: 'Sampling temperature between 0 and 2. Controls randomness, defaults to 1.',
-        type: 'number'
-    },
-    user: {
-        name: 'user',
-        desc: 'A unique identifier for the end-user to help monitor and detect abuse.',
         type: 'string'
     }
 };
@@ -224,8 +153,7 @@ export default class MyPlugin extends Plugin {
 					return;
 				}
 				let tx_data = { ...this.settings };
-				tx_data.messages = messages;
-				if(tx_data.model.includes('o1')){
+				if(!tx_data.model.includes('o1')){
 					const keys_to_keep = ['model', 'messages'];
 					for (const key in tx_data) {
 					  if (!keys_to_keep.includes(key)) {
@@ -233,6 +161,7 @@ export default class MyPlugin extends Plugin {
 					  }
 					}
 				}
+				tx_data.messages = messages;
 				try{					
 					const response = await fetch('http://localhost:8000/chat',
 						{
